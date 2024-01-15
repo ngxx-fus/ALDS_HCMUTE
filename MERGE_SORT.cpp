@@ -3,8 +3,10 @@ using namespace std;
 #define rep(i, begin, end) for( int i = (begin); i <= (end); i++)
 #define rev(i, begin, end) for( int i = (begin); i >= (end); i--)
 
-void merge_two_sequense(int *tmp_arr, int *left_arr_b, int *left_arr_e, int *right_arr_b, int *right_arr_e){//b: begin and e: end
-    
+void merge_two_sequense(int *tmp_arr, 
+            int *left_arr_b, int *left_arr_e, //b: begin and e: end
+            int *right_arr_b, int *right_arr_e)
+{
     int   *p_tmp = tmp_arr, 
             *p_left = left_arr_b,
             *p_right =right_arr_b; 
@@ -63,7 +65,7 @@ void merge_sort(int *left, int *right){
 }
 
 int32_t main(){
-    int arr[] = {1,2,3,4, 1,2,3,4,0,0,0};
+    int arr[] = {8,7,6,5,4,3,2,1,0,0,0};
     int tmp[18];
      merge_sort(arr+2, arr+11);
     //sort(arr+2, arr+11);
