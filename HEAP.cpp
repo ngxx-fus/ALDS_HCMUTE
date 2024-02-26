@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<time.h>
+#include<queue>
 using namespace std;
 
 template<class TYPE>
@@ -61,7 +63,7 @@ class my_heap{
         }
         return true;
     }
-
+    
     public:
     my_heap(){
         this->mode = false;//default for max-heap
@@ -100,11 +102,15 @@ class my_heap{
     }
     void insert(TYPE val){
         T.push_back(val);
-        for( int index = parent(size()); index >=1; index = parent(index)){
-            if(HEAPIFY(index) == false) break;
+    
+        for( int index = this->size(); 
+               index > 1 && T.at(parent(index)) != compare(T.at(parent(index)), T.at(index)); 
+               index = parent(index))
+        {
+            exchange(T.at(parent(index)), T.at(index));
         }
     }
-    TYPE top(){
+    TYPE max_value(){
         if( T.size() > 1)   return T.at(1);
         exit(-1);
         return -1;
@@ -121,7 +127,7 @@ class my_heap{
     vector<TYPE> get_sort(){
         vector<TYPE> v;
         while(this->size()) {
-            v.push_back(this->top());
+            v.push_back(this->max_value());
             this->pop();
         }
         return v;
@@ -129,8 +135,17 @@ class my_heap{
 };
 
 int main(){
-    freopen("output.txt", "w", stdout);
-    vector<int> v = {-54,3,21,5,-67,4,23,2,6,7};
-    v = my_heap<int>(v).get_sort();
-    for( auto p:v) cout << p << ' ';
+    freopen("./out/output.txt", "w", stdout);
+    vector<int> v;
+    my_heap<int> H(v);
+    priority_queue<int> q;
+    srand(time(NULL));
+    for (int i = 0; i <= 1000000; i++)
+    {
+        H.insert(rand()%1001-500); //avg; 219.13ms 
+        // q.push(rand()%1001-500); //avg: 192.8ms
+    }
+    
+    // v = H.get_sort();
+    // for( auto p:v) cout << p << ' ';
 }
