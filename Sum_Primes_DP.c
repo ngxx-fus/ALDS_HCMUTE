@@ -26,7 +26,7 @@ uint32 index_at_(uint64 key, uint64* arr, uint32 arr_size) {
     //range [l, r] in V
     uint64* mid, * l = arr, * r = arr + arr_size - 1;
     while (r - l >= 0) {
-        if (r - l == 0) if (*l == key) return l - arr; else return arr_size;
+        if (r - l == 0) {if (*l == key) return l - arr; else return arr_size;}
         mid = l + (r - l) / 2;
         if (*mid == key) {
             //found the index
