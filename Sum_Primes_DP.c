@@ -76,7 +76,7 @@ int main() {
         if (sum_primes_curr > sum_primes_prev) { //p is prime
         //removing the multiples of p 
         //Ex:p^2, p^2+p, p^2+2p, ..., V[i]
-            rep32(i, 0, v_size - 1) {
+            rep32(i, 0, v_size-1) {
                 if (V[i] < p_squared) break; // for all p < sqrt(V[i])
                 Data[i] -= p * (S(V[i] / p) - sum_primes_prev);
             }
