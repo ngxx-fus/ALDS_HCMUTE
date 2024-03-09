@@ -88,7 +88,7 @@ int main() {
 
     //------------------- end of code -------------------
     e = clock();
-    printf("Mem using by V, Data array (calc):  \n> %u bytes\n", 2*max_size_v*sizeof(uint64));
+    printf("Mem using by V, Data array (calc):  \n> %lu bytes\n", 2*max_size_v*sizeof(uint64));
     printf("Total exe time: \n> %0.9fs\n", 1.0f * (e - b) / CLOCKS_PER_SEC);
     printf("Result: \n> %llu\n", ans);
 }
