@@ -20,10 +20,10 @@ typedef unsigned int uint32;
 #define rep64(i, a, b) for( unsigned long long i = (a); i <= (b); ++i)
 #define rep32(i, a, b) for( unsigned int i = (a); i <= (b); ++i)
 
+//Similar functions Hash-Table
 #define S(x) Data[(index_at_(x, V, v_size))]
 uint32 index_at_(uint64 key, uint64* arr, uint32 arr_size) {
-    //range [l, r] in V 
-    ++called;
+    //range [l, r] in V
     uint64* mid, * l = arr, * r = arr + arr_size - 1;
     while (r - l >= 0) {
         if (r - l == 0) if (*l == key) return l - arr; else return arr_size;
@@ -46,9 +46,7 @@ int main() {
     uint64 n = 1e9;
 
     if(n < 2) {printf("Invalid input!\n"); return 0;}
-    //4 : reservation
-    uint32 max_size_v = 2 * floor(sqrt(n)) + 1 + 4;
-    //not total of the program!
+    uint32 max_size_v = 2 * floor(sqrt(n)) + 1 + 4; //4 : reservation
     uint32 v_size = 0;
 
     //initializing V array (consist of reservation  elements )
@@ -62,6 +60,7 @@ int main() {
     do { V[v_size] = V[v_size - 1] - 1; } while (V[v_size++] != 0);
 
     //Initializing Data array (consist of reservation elements )
+    //Data arr is used as a Hash-Table but O(logn) to access!
     uint64* Data = (uint64*)malloc(max_size_v * sizeof(uint64));
     //if allocation is failed -> exit
     if (Data == NULL) { free(V); printf("Cannot allocate memory - Data!\n"); return(0); }
@@ -69,13 +68,13 @@ int main() {
     //Computing the initail value for each S[v],  v in V.
     rep32(i, 0, v_size - 1) Data[i] = V[i] * (V[i] + 1) / 2 - 1;
 
+    //remove all non-primes in every S[v] which intial as sum 2->v
     rep64(p, 2llu, floor64(sqrt(n)) + 1) {
         uint64 sum_primes_curr = S(p);
         uint64 sum_primes_prev = S(p - 1);
         uint64 p_squared = p * p;
         if (sum_primes_curr > sum_primes_prev) { //p is prime
-        //removing the multiples of p 
-        //Ex:p^2, p^2+p, p^2+2p, ..., V[i]
+        //Non-primes: p^2, p^2+p, p^2+2p, ... = p*(p, p+1, p+1, p+3, ...)
             rep32(i, 0, v_size-1) {
                 if (V[i] < p_squared) break; // for all p < sqrt(V[i])
                 Data[i] -= p * (S(V[i] / p) - sum_primes_prev);
@@ -87,11 +86,9 @@ int main() {
     free(V);
     free(Data);
 
-    //---------------- end of code -------------------
+    //------------------- end of code -------------------
     e = clock();
-    //printf("V,Data array size: \n> %u\n", max_size_v);
     printf("Mem using by V, Data array (calc):  \n> %u bytes\n", 2*max_size_v*sizeof(uint64));
-    //printf("No. of call to \"index_at_\": \n> %llu\n", called);
     printf("Total exe time: \n> %0.9fs\n", 1.0f * (e - b) / CLOCKS_PER_SEC);
     printf("Result: \n> %llu\n", ans);
 }
