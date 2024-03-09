@@ -89,9 +89,9 @@ int main() {
 
     //---------------- end of code -------------------
     e = clock();
-    printf("V,Data array size: \n> %u\n", max_size_v);
-    printf("Mem using by V, Data array (calc):  \n> %u(Bytes)\n", 2*max_size_v*8+300);
-    printf("No. of call to \"index_at_\": \n> %llu\n", called);
-    printf("Total exe time: \n> %0.9f (s)\n", 1.0f * (e - b) / CLOCKS_PER_SEC);
+    //printf("V,Data array size: \n> %u\n", max_size_v);
+    printf("Mem using by V, Data array (calc):  \n> %u bytes\n", 2*max_size_v*sizeof(uint64));
+    //printf("No. of call to \"index_at_\": \n> %llu\n", called);
+    printf("Total exe time: \n> %0.9fs\n", 1.0f * (e - b) / CLOCKS_PER_SEC);
     printf("Result: \n> %llu\n", ans);
 }
