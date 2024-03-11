@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "*.py": "python",
-        "random": "c",
-        "math.h": "c"
+        "random": "cpp",
+        "vector": "cpp",
+        "utility": "cpp"
     }
 }

@@ -12,8 +12,9 @@ using namespace std;
 template<typename T>
 void exchange(T &a, T &b){ T tmp = a; a = b; b = tmp;}
 
-//T is an iterator or pointer
-//pivot is the end element of original sequence.
+//T is an iterator or pointer called as
+//pivot which is the end element of original sequence.
+//(right pivot only)
 //Aviable sort range : [p, r)
 template<typename T>
 T partition(T p, T r){
@@ -30,26 +31,24 @@ T partition(T p, T r){
             return p;
         }
     //initializing
-    T i = r;//r as null :>
-    //random
+    T i = r;//r as null bcz sorting range [L,r):>
     T pivot = r-1;
-    //the range of the greater than pivot elements  
-    // is (i, j)
+    //the range of the elements greater than pivot is (i, j)
     for( T j = p; j != pivot && i != pivot; j++){
         if( *j <= *pivot){
             if(i == r){
-                i = j;
+                i = p;
             }else{
                 ++i;
-                exchange(*i, *j);
             }
+            exchange(*i, *j);
         }
     }
-    //Now, the range of the greater than pivot elements 
-    //is (i, j]. onsist of j!  j is the true index of the of the pivot.
+    //Now, the range of the elements  greater than pivot
+    //is (i, j]. consist of j!  j is the true index of the of the pivot.
     //If (i, j] is not invalid, then the last step
     //is exchange(*i, *pivot). 
-    //Call that case is "normal case"!
+    //This case is called "normal case"!
 
     //if the range (i, j] is invalid ranged such as:
     // i == r (r as null :>) then the true of the index of pivot is p :> 
@@ -79,7 +78,7 @@ void quick_sort(T begin_, T end_){
 }
 
 int main(){
-    vector<int> v = {1,4,5,2,3,-1,4,10,6,8,7,5,5};
+    vector<int> v = {1,4,5,2,3,-1,4,10,6,8,7,5,5, -11, -19, -3, 8, 10,13,-17};
     quick_sort(v.begin(), v.end());  
     for(auto p:v) printf("%-3d", p);
 return 0;
