@@ -32,7 +32,7 @@ T partition(T p, T r){
             return p;
         }
     }
-    T i = r;//r as NULL
+    T i = r;
     T pivot = random_pivot(p, r);
     for( T j = p; j != pivot && i != pivot; j++){
         if( *j <= *pivot){
